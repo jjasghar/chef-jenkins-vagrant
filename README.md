@@ -30,7 +30,23 @@ https://www.virtualbox.org/wiki/Downloads
 
 Installing Ruby
 ---------------
-From source? or packages?
+My company runs Ubuntu 10.04 so before I install ruby i have some packages to download and install.
+`apt-get install build-essential wget libyaml-dev zlib1g-dev libreadline-dev libssl-dev tk-dev libgdbm-dev`
+
+My company builds Ruby from source, here is my generic script to get it built.
+```bash
+cd /tmp/
+wget http://ftp.ruby-lang.org/pub/ruby/1.9/ruby-1.9.3-p374.tar.gz
+tar xzf ruby-1.9.3-p374.tar.gz
+cd ruby-1.9.3-p374
+./configure --prefix=/usr/local/ --enable-shared --disable-install-doc
+make
+make install
+cd /tmp/
+rm -rf ruby-1.9.3-p374*
+```
+
+
 
 Installing vagrant
 ------------------
