@@ -11,7 +11,7 @@ Things you need
 * Virtualbox
 * Ruby
 * Vagrant  
-* TODO: a chef server, or https://github.com/jkeiser/chef-zero, still deciding on this
+* A place to run chef server, _I'm suggestioning chef-zero_
 * Foodcritic
 * Minitest cookbook 
 
@@ -46,11 +46,14 @@ cd /tmp/
 rm -rf ruby-1.9.3-p374*
 ```
 
-
-
 Installing vagrant
 ------------------
 `gem install vagrant` 
+
+Installing chef-zero 
+--------------------
+`gem install chef-zero`
+TODO: https://github.com/jkeiser/chef-zero
 
 Extra gems
 ----------
@@ -58,10 +61,12 @@ Foodcritic gem `gem install foodcritic`
 
 TODO: Jenkins API gem https://github.com/tuo/jenkins-remote-api `gem install jenkins-remote-api`
 
+
 Cookbooks
 ---------
 
-Demo cookbook to run the test(s) against
+Demo cookbook to run the test(s) against, check for files/services running
+* http://community.opscode.com/cookbooks/nginx 
 
 Minitest cookbook https://github.com/btm/minitest-handler-cookbook
 
