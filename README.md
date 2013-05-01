@@ -1,7 +1,7 @@
 chef-jenkins-vagrant
 ====================
 
-My "recipe" how I got Chef Jenkins and Vagrant to play nice.
+My "recipe" how I got Chef Jenkins and Vagrant to play nice.  After watching specificly this (http://www.youtube.com/watch?v=h_IEfNklzW4) video, I realized I could do this.  I searched high and low for a way to bulid this stack, and nothing.  I decided to create a way to centralize my notes and hopefully give this out to the community.  Please if you have suggestions or commens PRs or emails to my github email address are more than welcome.
 
 Things you need
 ===============
