@@ -55,6 +55,7 @@ Installing vagrant
 Extra gems
 ----------
 Foodcritic gem `gem install foodcritic`
+TODO: Jenkins API gem http://rubygems.org/gems/jenkins-remote-api `gem install jenkins-remote-api`
 
 Cookbooks
 ---------
