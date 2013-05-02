@@ -25,34 +25,42 @@ Installing Jenkins
 (standalone or via tomcat) http://mirrors.jenkins-ci.org/war/latest/jenkins.war
 
 ```shell
-apt-get install tomcat7`
-mkdir -p /usr/share/tomcat7/logs/
-/usr/shar/tomcat7/bin/startup.sh
+apt-get install jenkins
+service jenkins start
 ```
-If you go to http://localhost:8080 and see "It works!," or something to that effect you have a working tomcat server.
+If you go to http://localhost:8080 and see jenkins you're set.
 
-Now to download jenkins and move the port to port 80 because I'm lazy.
+Now to move the port to port 80 because I'm lazy, and to do this you need apache.
 ``shell
-wget http://mirrors.jenkins-ci.org/war/latest/jenkins.war 
-/usr/share/tomcat7/bin/shutdown.sh
-vim /etc/default/tomcat7
+service jenkins stop
+apt-get install apache2
+vim /etc/apache2/mods-available/proxy_ajp.conf
 ```
-Change and uncomment `#AUTHBIND=no` to `AUTHBIND=yes` and open `server.xml`
+Add to the file
 ```shell
-mkdir /usr/share/tomcat7/conf/
-mkdir /usr/share/tomcat7/temp/
-cp /etc/tomcat7/server.xml /usr/share/tomcat7/conf/server.xml
-vim /usr/share/tomcat7/server.xml
+ProxyPass /jenkins http://localhost:8080/jenkins
+ProxyPassReverse /jenkins http://localhost:8080/jenkins
+ProxyRequests Off
 ```
-Change
-```xml
-    <Connector port="8080" maxHttpHeaderSize="8192"
+Enable the proxy and restart apache and jenkins
+```shell
+a2enmod proxy
+a2enmod proxy_http
+vim /etc/defaults/jenkins
+# add --prefix=/jenkins to the JENKINS_ARGS at the end of the file
+service apache2 restart
+service jenkins restart
 ```
-to
-```xml
-    <Connector port="80" maxHttpHeaderSize="8192"
-```
+You should be able to hit the jenkins box at http://localhost now
 
+NOTE: If you want to change the JVM settings the `/etc/default/jenkins` file is where you want to do it. 
+
+If you would like to update Jenkins follow these steps:
+```shell
+cd /usr/share/jenkins/
+wget http://mirrors.jenkins-ci.org/war/latest/jenkins.war
+service jenkins restart
+```
 
 
 Installing Virtualbox
