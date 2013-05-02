@@ -100,8 +100,8 @@ Demo Vagrant file:
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 $script = <<SCRIPT
-curl -L http://bit.ly/vagrant_boot | bash
-apt-get install git
+apt-get install git curl -y
+curl -L http://bit.ly/vagrant_boot_v1 | bash
 mkdir /tmp/cookbooks/ && cd /tmp/cookbooks/
 git clone git://github.com/jjasghar/nginx-cookbook-testing.git
 gem install chef-zero foodcritic
