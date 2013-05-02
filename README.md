@@ -50,10 +50,38 @@ Installing vagrant
 ------------------
 `gem install vagrant` 
 
+Demo Vagrant file:
+```ruby
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+$script = <<SCRIPT
+curl -L http://bit.ly/vagrant_boot | bash
+apt-get install git
+mkdir /tmp/cookbooks/ && cd /tmp/cookbooks/
+git clone git://github.com/jjasghar/nginx-cookbook-testing.git
+gem install chef-zero foodcritic
+SCRIPT
+
+Vagrant::Config.run do |config|
+  config.vm.box = "vagrant"
+  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
+  config.vm.host_name = 'vagrant'
+
+  config.vm.provision :shell, :inline => $script
+
+  config.vm.provision :chef_client do |chef|
+    chef.chef_server_url = "https://localhost:8889"
+    chef.validation_key_path = "validation.pem"
+    chef.environment = "_default"
+    chef.add_role "web"
+  end
+end
+```
 Installing chef-zero 
 --------------------
 `gem install chef-zero`
 TODO: https://github.com/jkeiser/chef-zero
+TODO: I need to figure out a way too bootstrap chef-zero and git clone etc etc.
 
 Extra gems
 ----------
@@ -65,8 +93,12 @@ TODO: Jenkins API gem https://github.com/tuo/jenkins-remote-api `gem install jen
 Cookbooks
 ---------
 
-Demo cookbook to run the test(s) against, check for files/services running
-* http://community.opscode.com/cookbooks/nginx 
+I chose the nginx cookbook to run the test(s) against, it seems that there was already a minitests there.  It checks for a couple files and confirms that service  is running.  
 
-Minitest cookbook https://github.com/btm/minitest-handler-cookbook
+* https://github.com/jjasghar/nginx-cookbook-testing.git
+
+
+Minitest cookbook is the last recipe that you want to tag on to your run_list.  If you look at the Vagrant file above you'll see how I chose to in.
+
+* https://github.com/btm/minitest-handler-cookbook
 
