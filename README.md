@@ -71,9 +71,9 @@ Vagrant::Config.run do |config|
 
   config.vm.provision :chef_client do |chef|
     chef.chef_server_url = "https://localhost:8889"
-    chef.validation_key_path = "validation.pem"
+    chef.validation_key_path = "fake_pem.pem"
     chef.environment = "_default"
-    chef.add_role "web"
+    chef.add_recipe "nginx,minitest-handler-cookbook"
   end
 end
 ```
