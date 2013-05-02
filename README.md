@@ -51,7 +51,7 @@ vim /etc/defaults/jenkins
 service apache2 restart
 service jenkins restart
 ```
-You should be able to hit the jenkins box at http://localhost now
+You should be able to hit the jenkins box at http://localhost/jenkins now
 
 NOTE: If you want to change the JVM settings the `/etc/default/jenkins` file is where you want to do it. 
 
@@ -92,6 +92,8 @@ rm -rf ruby-1.9.3-p374*
 Installing vagrant
 ------------------
 `gem install vagrant` 
+
+NOTE: vagrant requires at least version 4.x.  Please make sure you have it, otherwise you'll get  a nice red error when trying to use it.
 
 Demo Vagrant file:
 ```ruby
