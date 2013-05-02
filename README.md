@@ -31,7 +31,7 @@ service jenkins start
 If you go to http://localhost:8080 and see jenkins you're set.
 
 Now to move the port to port 80 because I'm lazy, and to do this you need apache.
-``shell
+```shell
 service jenkins stop
 apt-get install apache2
 vim /etc/apache2/mods-available/proxy_ajp.conf
