@@ -65,6 +65,7 @@ service jenkins restart
 ### Plugins for jenkins ###
 
 * vagrant plugin: https://wiki.jenkins-ci.org/display/JENKINS/Vagrant+Plugin
+* Github plugin: https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Plugin
 
 
 Installing Virtualbox
