@@ -62,6 +62,10 @@ wget http://mirrors.jenkins-ci.org/war/latest/jenkins.war
 service jenkins restart
 ```
 
+### Plugins for jenkins ###
+
+* vagrant plugin: https://wiki.jenkins-ci.org/display/JENKINS/Vagrant+Plugin
+
 
 Installing Virtualbox
 ---------------------
