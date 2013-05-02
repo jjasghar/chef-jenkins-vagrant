@@ -24,9 +24,43 @@ Installing Jenkins
 ------------------
 (standalone or via tomcat) http://mirrors.jenkins-ci.org/war/latest/jenkins.war
 
+```shell
+apt-get install tomcat7`
+mkdir -p /usr/share/tomcat7/logs/
+/usr/shar/tomcat7/bin/startup.sh
+```
+If you go to http://localhost:8080 and see "It works!," or something to that effect you have a working tomcat server.
+
+Now to download jenkins and move the port to port 80 because I'm lazy.
+``shell
+wget http://mirrors.jenkins-ci.org/war/latest/jenkins.war 
+/usr/share/tomcat7/bin/shutdown.sh
+vim /etc/default/tomcat7
+```
+Change and uncomment `#AUTHBIND=no` to `AUTHBIND=yes` and open `server.xml`
+```shell
+mkdir /usr/share/tomcat7/conf/
+mkdir /usr/share/tomcat7/temp/
+cp /etc/tomcat7/server.xml /usr/share/tomcat7/conf/server.xml
+vim /usr/share/tomcat7/server.xml
+```
+Change
+```xml
+    <Connector port="8080" maxHttpHeaderSize="8192"
+```
+to
+```xml
+    <Connector port="80" maxHttpHeaderSize="8192"
+```
+
+
+
 Installing Virtualbox
 ---------------------
-https://www.virtualbox.org/wiki/Downloads
+Easyest way is to install it via apt-get.
+`apt-get install virtualbox`
+
+
 
 Installing Ruby
 ---------------
