@@ -32,7 +32,7 @@ mkdir -p /usr/share/tomcat7/logs/
 If you go to http://localhost:8080 and see "It works!," or something to that effect you have a working tomcat server.
 
 Now to download jenkins and move the port to port 80 because I'm lazy.
-``shell
+```shell
 wget http://mirrors.jenkins-ci.org/war/latest/jenkins.war 
 /usr/share/tomcat7/bin/shutdown.sh
 vim /etc/default/tomcat7
@@ -58,6 +58,7 @@ to
 Installing Virtualbox
 ---------------------
 Easyest way is to install it via apt-get.
+
 `apt-get install virtualbox`
 
 
