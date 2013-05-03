@@ -1,7 +1,11 @@
 chef-jenkins-vagrant
 ====================
 
-My "recipe" how I got Chef Jenkins and Vagrant to play nice.  After watching specificly this (http://www.youtube.com/watch?v=h_IEfNklzW4) video, I realized I could do this.  I searched high and low for a way to bulid this stack, and nothing.  I decided to create a way to centralize my notes and hopefully give this out to the community.  Please if you have suggestions or commens PRs or emails to my github email address are more than welcome.
+This is my "recipe" on how I got Chef Jenkins and Vagrant to play nice.  After watching this (http://www.youtube.com/watch?v=h_IEfNklzW4) video, I realized I could do this.  I searched high and low for a tutorial on how  to bulid this stack, and nothing.  So I decided to create a github doc to centralize my setup and hopefully let the community suggest additions.  
+
+If you have any suggestions, comments, pull requests, or emails are more than welcome.
+
+jjasghar{at}gmail_dot_com or @jjasghar
 
 Things you need
 ===============
