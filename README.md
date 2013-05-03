@@ -128,10 +128,13 @@ apt-get install git curl -y
 curl -L http://bit.ly/vagrant_boot_v1 | bash
 mkdir /tmp/cookbooks/ && cd /tmp/cookbooks/
 git clone git://github.com/jjasghar/nginx-cookbook-testing.git
-sudo gem install chef-zero 
+sudo gem install chef-zero knife-essentials
 echo "starting up chef_zero"
 ruby -e "require 'chef_zero/server'; server = ChefZero::Server.new(:port => 8889); server.start" > /dev/null 2>&1 &
 echo "finished starting up chef_zero"
+cd /tmp/
+# TODO: create a knife.rb, maybe cat it out? chew on this one
+knife upload cookbooks/*
 SCRIPT
 
 Vagrant::Config.run do |config|
@@ -145,7 +148,8 @@ Vagrant::Config.run do |config|
     chef.chef_server_url = "http://localhost:8889"
     chef.validation_key_path = "validation.pem"
     chef.environment = "_default"
-    chef.add_recipe "nginx,minitest-handler-cookbook"
+    chef.add_recipe "nginx"
+    chef.add_recipe "minitest-handler-cookbook"
   end
 end
 ```
