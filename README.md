@@ -62,6 +62,16 @@ wget http://mirrors.jenkins-ci.org/war/latest/jenkins.war
 service jenkins restart
 ```
 
+If you would like emails sent out about the builds, go to Manage Jenkins - Configure System - Email Notification. _I wanted to relay through gmail so I set it this way_
+```shell
+SMTP server: smtp.gmail.com
+Username: jjasghar
+Password: *******
+Use SSL: X
+SMTP Port: 465
+```
+There are other settings, but the above will get you the important ones.
+
 ### Plugins for jenkins ###
 
 * vagrant plugin: https://wiki.jenkins-ci.org/display/JENKINS/Vagrant+Plugin
