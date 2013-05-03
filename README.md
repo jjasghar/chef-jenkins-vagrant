@@ -80,6 +80,9 @@ There are other settings, but the above will get you the important ones.
 
 * vagrant plugin: https://wiki.jenkins-ci.org/display/JENKINS/Vagrant+Plugin
 * Github plugin: https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Plugin
+* Prettier Email plugin: https://wiki.jenkins-ci.org/display/JENKINS/Email-ext+plugin
+* Green Balls, blue is dumb: https://wiki.jenkins-ci.org/display/JENKINS/Green+Balls
+* Ruby Plugin: http://wiki.hudson-ci.org/display/HUDSON/Ruby+Plugin
 
 
 Installing Virtualbox
@@ -114,6 +117,8 @@ Installing vagrant
 
 NOTE: vagrant requires at least version 4.x.  Please make sure you have it, otherwise you'll get  a nice red error when trying to use it.
 
+You can use the validation.pem from this repo, or you can copy your private key from `~/.ssh/`. It just needs trash in there but it needs a `.pem`.
+
 Demo Vagrant file:
 ```ruby
 # -*- mode: ruby -*-
@@ -123,7 +128,10 @@ apt-get install git curl -y
 curl -L http://bit.ly/vagrant_boot_v1 | bash
 mkdir /tmp/cookbooks/ && cd /tmp/cookbooks/
 git clone git://github.com/jjasghar/nginx-cookbook-testing.git
-gem install chef-zero foodcritic
+sudo gem install chef-zero 
+echo "starting up chef_zero"
+ruby -e "require 'chef_zero/server'; server = ChefZero::Server.new(:port => 8889); server.start" > /dev/null 2>&1 &
+echo "finished starting up chef_zero"
 SCRIPT
 
 Vagrant::Config.run do |config|
@@ -134,13 +142,16 @@ Vagrant::Config.run do |config|
   config.vm.provision :shell, :inline => $script
 
   config.vm.provision :chef_client do |chef|
-    chef.chef_server_url = "https://localhost:8889"
-    chef.validation_key_path = "fake_pem.pem"
+    chef.chef_server_url = "http://localhost:8889"
+    chef.validation_key_path = "validation.pem"
     chef.environment = "_default"
     chef.add_recipe "nginx,minitest-handler-cookbook"
   end
 end
 ```
+
+
+
 Installing chef-zero 
 --------------------
 `gem install chef-zero`
@@ -166,3 +177,24 @@ Minitest cookbook is the last recipe that you want to tag on to your run_list.  
 
 * https://github.com/btm/minitest-handler-cookbook
 
+
+Build Steps in Jenkins
+---------------------
+
+Find a place for the jenkins user to access and run the vagrant file. I put it in the `/home/jenkins` directory.
+
+First Build step, execute shell commands:
+```shell
+cd /home/jenkins
+vagrant up
+```
+TODO this didnt work: Second Build step, execute ruby commands:
+```ruby
+require 'chef_zero/server'
+server = ChefZero::Server.new(:port => 8889)
+thread = Thread.new { server.start }
+```
+Third Build step, execute shell commands:
+```shell
+vagrant destory --force
+```
