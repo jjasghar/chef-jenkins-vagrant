@@ -91,8 +91,6 @@ Easyest way is to install it via apt-get.
 
 `apt-get install virtualbox`
 
-
-
 Installing Ruby
 ---------------
 My company runs Ubuntu 10.04 so before I install ruby i have some packages to download and install.
@@ -124,34 +122,54 @@ Demo Vagrant file:
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 $script = <<SCRIPT
-apt-get install git curl -y
-curl -L http://bit.ly/vagrant_boot_v1 | bash
+apt-get update
+apt-get upgrade -y
+apt-get install curl git-core make build-essential libxml2-dev -y
+curl -L http://bit.ly/vagrant_boot_v1 | sudo bash
 mkdir /tmp/cookbooks/ && cd /tmp/cookbooks/
 git clone git://github.com/jjasghar/nginx-cookbook-testing.git
-sudo gem install chef-zero knife-essentials
-echo "starting up chef_zero"
-ruby -e "require 'chef_zero/server'; server = ChefZero::Server.new(:port => 8889); server.start" > /dev/null 2>&1 &
-echo "finished starting up chef_zero"
+mv /tmp/cookbooks/nginx-cookbook-testing/ /tmp/cookbooks/nginx/
+cd /tmp/cookbooks/
+git clone git://github.com/btm/minitest-handler-cookbook.git
+cd /tmp/cookbooks/
+git clone git://github.com/opscode-cookbooks/build-essential.git
+cd /tmp/cookbooks/
+git clone git://github.com/opscode-cookbooks/yum.git
+cd /tmp/cookbooks/
+git clone git://github.com/opscode-cookbooks/apt.git
+cd /tmp/cookbooks/
+git clone git://github.com/opscode-cookbooks/ohai.git
+cd /tmp/cookbooks/
+git clone git://github.com/opscode-cookbooks/chef_handler.git
 cd /tmp/
-# TODO: create a knife.rb, maybe cat it out? chew on this one
-knife upload cookbooks/*
+cp /etc/ssh/ssh_host_rsa_key /tmp/validation.pem
+sudo gem install chef-zero
+ruby -e "require 'chef_zero/server' ; server = ChefZero::Server.new(:port => 8889) ; server.start " > /dev/null 2>&1 &
+cat << EOF > knife.rb
+chef_server_url "http://127.0.0.1:8889"
+node_name "blah"
+client_key "/tmp/validation.pem"
+EOF
+knife cookbook upload -o :/tmp/cookbooks -a
+
 SCRIPT
 
 Vagrant::Config.run do |config|
-  config.vm.box = "precise32"
-  config.vm.box_url = "http://files.vagrantup.com/precise32.box"
-  config.vm.host_name = 'precise32'
+  config.vm.box = "lucid32"
+  config.vm.box_url = "http://files.vagrantup.com/lucid32.box"
+  config.vm.host_name = 'lucid32'
 
   config.vm.provision :shell, :inline => $script
 
   config.vm.provision :chef_client do |chef|
-    chef.chef_server_url = "http://localhost:8889"
-    chef.validation_key_path = "validation.pem"
-    chef.environment = "_default"
-    chef.add_recipe "nginx"
-    chef.add_recipe "minitest-handler-cookbook"
-  end
+  chef.chef_server_url = "http://localhost:8889"
+  chef.validation_key_path = "validation.pem"
+  chef.environment = "_default"
+  chef.add_recipe "nginx"
+  chef.add_recipe "minitest-handler-cookbook"
+ end
 end
+
 ```
 
 
@@ -159,8 +177,6 @@ end
 Installing chef-zero 
 --------------------
 `gem install chef-zero`
-TODO: https://github.com/jkeiser/chef-zero
-TODO: I need to figure out a way too bootstrap chef-zero and git clone etc etc.
 
 Extra gems
 ----------
@@ -192,13 +208,9 @@ First Build step, execute shell commands:
 cd /home/jenkins
 vagrant up
 ```
-TODO this didnt work: Second Build step, execute ruby commands:
-```ruby
-require 'chef_zero/server'
-server = ChefZero::Server.new(:port => 8889)
-thread = Thread.new { server.start }
 ```
-Third Build step, execute shell commands:
+Second Build step, execute shell commands:
 ```shell
+cd /home/jenkins
 vagrant destory --force
 ```
