@@ -171,11 +171,6 @@ end
 ```
 
 
-
-Installing chef-zero 
---------------------
-`gem install chef-zero`
-
 Extra gems
 ----------
 Foodcritic gem `gem install foodcritic`
