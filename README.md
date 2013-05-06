@@ -22,8 +22,6 @@ Things you need
 Working Notes
 =============
 
-1) got the inital need list, lets get this going.
-
 Installing Jenkins
 ------------------
 (standalone or via tomcat) http://mirrors.jenkins-ci.org/war/latest/jenkins.war
@@ -115,10 +113,10 @@ Installing vagrant
 
 NOTE: vagrant requires at least version 4.x.  Please make sure you have it, otherwise you'll get  a nice red error when trying to use it.
 
-You can use the validation.pem from this repo, or you can copy your private key from `~/.ssh/`. It just needs trash in there but it needs a `.pem`.
+You can use the validation.pem from this repo, or you can copy your private key from something like `/etc/ssh/ssh_host_rsa_key`. It just needs a properly formatted file and there but it needs a `.pem` at the end of it.
 
 Demo Vagrant file:
-```ruby
+```shell
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 $script = <<SCRIPT
@@ -208,7 +206,7 @@ First Build step, execute shell commands:
 cd /home/jenkins
 vagrant up
 ```
-```
+
 Second Build step, execute shell commands:
 ```shell
 cd /home/jenkins
