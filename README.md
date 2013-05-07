@@ -14,12 +14,12 @@ Things you need
 
 * A Physical Box _Running this in a vm is a bad idea_
 * Jenkins
-* Virtualbox
-* Ruby
-* Vagrant
+* virtualbox
+* ruby
+* vagrant
 * A place to run chef server, _I'm suggestioning chef-zero_
-* Foodcritic
-* Minitest cookbook
+* foodcritic
+* minitest cookbook
 
 Basic Steps
 ===========
@@ -87,6 +87,8 @@ cd /tmp/cookbooks/
 git clone git://github.com/opscode-cookbooks/apt.git
 cd /tmp/cookbooks/
 git clone git://github.com/opscode-cookbooks/ohai.git
+cd /tmp/cookbooks/
+git clone git://github.com/opscode-cookbooks/runit.git
 cd /tmp/cookbooks/
 git clone git://github.com/opscode-cookbooks/chef_handler.git
 cd /tmp/
