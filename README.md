@@ -17,7 +17,7 @@ Things you need
 * virtualbox
 * ruby
 * vagrant
-* A place to run chef server, _I'm suggestioning chef-zero_
+* A chef server, _I'm suggestioning chef-zero_
 * foodcritic
 * minitest cookbook
 
