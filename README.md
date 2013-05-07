@@ -7,7 +7,7 @@ If you have any suggestions, comments, pull requests, or emails are more than we
 
 NOTE: I wrote this thinking you'd install it on ubuntu, change out `apt-get` for what your package manager of choice is.
 
-jjasghar{at}gmail_dot_com or @jjasghar
+jjasghar{at}gmail_dot_com or on twitter @jjasghar
 
 Things you need
 ===============
