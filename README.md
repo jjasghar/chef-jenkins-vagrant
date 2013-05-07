@@ -120,6 +120,15 @@ end
 
 ```
 
+A client.rb file that you can put at `/etc/chef/client.rb` if you so choose.
+```ruby
+log_level        :info
+log_location     STDOUT
+chef_server_url  "http://localhost:8889"
+validation_client_name "chef-validator"
+node_name "lucid32.hsd1.ca.comcast.net."
+```
+
 
 Installing Jenkins
 ------------------
