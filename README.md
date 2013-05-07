@@ -5,6 +5,8 @@ This is my "recipe" on how I got Chef Jenkins and Vagrant to play nice.  After w
 
 If you have any suggestions, comments, pull requests, or emails are more than welcome.
 
+NOTE: I wrote this thinking you'd install it on ubuntu, change out `apt-get` for what your package manager of choice is.
+
 jjasghar{at}gmail_dot_com or @jjasghar
 
 Things you need
@@ -32,7 +34,6 @@ Basic Steps
 
 Installing Jenkins
 ------------------
-(standalone or via tomcat) http://mirrors.jenkins-ci.org/war/latest/jenkins.war
 
 ```shell
 apt-get install jenkins
