@@ -31,73 +31,6 @@ Basic Steps
 5. Create a place to run the Vagrantfile from, copy it in also
 6. `vagrant up` :)
 
-
-Installing Jenkins
-------------------
-
-```shell
-apt-get install jenkins
-service jenkins start
-```
-If you go to http://localhost:8080 and see jenkins you're set.
-
-Now to move the port to port 80 because I'm lazy, and to do this you need apache.
-```shell
-service jenkins stop
-apt-get install apache2
-vim /etc/apache2/mods-available/proxy_ajp.conf
-```
-Add to the file
-```shell
-ProxyPass /jenkins http://localhost:8080/jenkins
-ProxyPassReverse /jenkins http://localhost:8080/jenkins
-ProxyRequests Off
-```
-Enable the proxy and restart apache and jenkins
-```shell
-a2enmod proxy
-a2enmod proxy_http
-vim /etc/defaults/jenkins
-# add --prefix=/jenkins to the JENKINS_ARGS at the end of the file
-service apache2 restart
-service jenkins restart
-```
-You should be able to hit the jenkins box at http://localhost/jenkins now
-
-NOTE: If you want to change the JVM settings the `/etc/default/jenkins` file is where you want to do it. 
-
-If you would like to update Jenkins follow these steps:
-```shell
-cd /usr/share/jenkins/
-wget http://mirrors.jenkins-ci.org/war/latest/jenkins.war
-service jenkins restart
-```
-
-If you would like emails sent out about the builds, go to Manage Jenkins - Configure System - Email Notification. _I wanted to relay through gmail so I set it this way_
-```shell
-SMTP server: smtp.gmail.com
-Username: jjasghar
-Password: *******
-Use SSL: X
-SMTP Port: 465
-```
-There are other settings, but the above will get you the important ones.
-
-### Plugins for jenkins ###
-
-* vagrant plugin: https://wiki.jenkins-ci.org/display/JENKINS/Vagrant+Plugin
-* Github plugin: https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Plugin
-* Prettier Email plugin: https://wiki.jenkins-ci.org/display/JENKINS/Email-ext+plugin
-* Green Balls, blue is dumb: https://wiki.jenkins-ci.org/display/JENKINS/Green+Balls
-* Ruby Plugin: http://wiki.hudson-ci.org/display/HUDSON/Ruby+Plugin
-
-
-Installing Virtualbox
----------------------
-Easyest way is to install it via apt-get.
-
-`apt-get install virtualbox`
-
 Installing Ruby
 ---------------
 My company runs Ubuntu 10.04 so before I install ruby i have some packages to download and install.
@@ -115,6 +48,13 @@ make install
 cd /tmp/
 rm -rf ruby-1.9.3-p374*
 ```
+
+Installing Virtualbox
+---------------------
+Easyest way is to install it via apt-get.
+
+`apt-get install virtualbox`
+
 
 Installing vagrant
 ------------------
@@ -179,6 +119,68 @@ Vagrant::Config.run do |config|
 end
 
 ```
+
+
+Installing Jenkins
+------------------
+
+```shell
+apt-get install jenkins
+service jenkins start
+```
+If you go to http://localhost:8080 and see jenkins you're set.
+
+Now to move the port to port 80 because I'm lazy, and to do this you need apache.
+```shell
+service jenkins stop
+apt-get install apache2
+vim /etc/apache2/mods-available/proxy_ajp.conf
+```
+Add to the file
+```shell
+ProxyPass /jenkins http://localhost:8080/jenkins
+ProxyPassReverse /jenkins http://localhost:8080/jenkins
+ProxyRequests Off
+```
+Enable the proxy and restart apache and jenkins
+```shell
+a2enmod proxy
+a2enmod proxy_http
+vim /etc/defaults/jenkins
+# add --prefix=/jenkins to the JENKINS_ARGS at the end of the file
+service apache2 restart
+service jenkins restart
+```
+You should be able to hit the jenkins box at http://localhost/jenkins now
+
+NOTE: If you want to change the JVM settings the `/etc/default/jenkins` file is where you want to do it. 
+
+If you would like to update Jenkins follow these steps:
+```shell
+cd /usr/share/jenkins/
+wget http://mirrors.jenkins-ci.org/war/latest/jenkins.war
+service jenkins restart
+```
+
+If you would like emails sent out about the builds, go to Manage Jenkins - Configure System - Email Notification. _I wanted to relay through gmail so I set it this way_
+```shell
+SMTP server: smtp.gmail.com
+Username: jjasghar
+Password: *******
+Use SSL: X
+SMTP Port: 465
+```
+There are other settings, but the above will get you the important ones.
+
+### Plugins for jenkins ###
+
+* vagrant plugin: https://wiki.jenkins-ci.org/display/JENKINS/Vagrant+Plugin
+* Github plugin: https://wiki.jenkins-ci.org/display/JENKINS/GitHub+Plugin
+* Prettier Email plugin: https://wiki.jenkins-ci.org/display/JENKINS/Email-ext+plugin
+* Green Balls, blue is dumb: https://wiki.jenkins-ci.org/display/JENKINS/Green+Balls
+* Ruby Plugin: http://wiki.hudson-ci.org/display/HUDSON/Ruby+Plugin
+
+
 
 
 Extra gems
