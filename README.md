@@ -18,8 +18,7 @@ Things you need
 * ruby
 * vagrant
 * A chef server, _I'm suggestioning chef-zero_
-* foodcritic
-* minitest cookbook
+
 
 Basic Steps
 ===========
