@@ -52,8 +52,7 @@ Installing Virtualbox
 ---------------------
 Easyest way is to install it via apt-get.
 
-`apt-get install virtualbox`
-
+`apt-get install virtualbox` or go to http://www.virtualbox.org and get the latest.
 
 Installing vagrant
 ------------------
