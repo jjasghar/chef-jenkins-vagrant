@@ -14,13 +14,21 @@ Things you need
 * Jenkins
 * Virtualbox
 * Ruby
-* Vagrant  
+* Vagrant
 * A place to run chef server, _I'm suggestioning chef-zero_
 * Foodcritic
-* Minitest cookbook 
+* Minitest cookbook
 
-Working Notes
-=============
+Basic Steps
+===========
+
+1. Get your base image installed, I used Ubuntu 10.04, and install ruby.
+2. Install vagrant and virtual box
+3. (optional) Install Jenkins
+4. (optional) Configure Jenkins
+5. Create a place to run the Vagrantfile from, copy it in also
+6. `vagrant up` :)
+
 
 Installing Jenkins
 ------------------
@@ -109,14 +117,16 @@ rm -rf ruby-1.9.3-p374*
 
 Installing vagrant
 ------------------
-`gem install vagrant` 
+`gem install vagrant`
 
 NOTE: vagrant requires at least version 4.x.  Please make sure you have it, otherwise you'll get  a nice red error when trying to use it.
 
 You can use the validation.pem from this repo, or you can copy your private key from something like `/etc/ssh/ssh_host_rsa_key`. It just needs a properly formatted file and there but it needs a `.pem` at the end of it.
 
+This Vagrant file will just pull down the nginx cookbook, if you want play around with it, I'd suggest forking it and changing `git clone git://github.com/opscode-cookbooks/nginx.git` line to work with yours.
+
 Demo Vagrant file:
-```shell
+```ruby
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 $script = <<SCRIPT
@@ -125,8 +135,7 @@ apt-get upgrade -y
 apt-get install curl git-core make build-essential libxml2-dev -y
 curl -L http://bit.ly/vagrant_boot_v1 | sudo bash
 mkdir /tmp/cookbooks/ && cd /tmp/cookbooks/
-git clone git://github.com/jjasghar/nginx-cookbook-testing.git
-mv /tmp/cookbooks/nginx-cookbook-testing/ /tmp/cookbooks/nginx/
+git clone git://github.com/opscode-cookbooks/nginx.git
 cd /tmp/cookbooks/
 git clone git://github.com/btm/minitest-handler-cookbook.git
 cd /tmp/cookbooks/
@@ -173,7 +182,7 @@ end
 
 Extra gems
 ----------
-Foodcritic gem `gem install foodcritic`
+TODO: Foodcritic gem `gem install foodcritic`
 
 TODO: Jenkins API gem https://github.com/tuo/jenkins-remote-api `gem install jenkins-remote-api`
 
@@ -181,10 +190,11 @@ TODO: Jenkins API gem https://github.com/tuo/jenkins-remote-api `gem install jen
 Cookbooks
 ---------
 
-I chose the nginx cookbook to run the test(s) against, it seems that there was already a minitests there.  It checks for a couple files and confirms that service  is running.  
+I chose the nginx cookbook to run the test(s) against, it seems that there was already a minitests there.  It checks for a couple files and confirms that service  is running.
 
+* https://github.com/opscode-cookbooks/nginx.git
+And i forked it to:
 * https://github.com/jjasghar/nginx-cookbook-testing.git
-
 
 Minitest cookbook is the last recipe that you want to tag on to your run_list.  If you look at the Vagrant file above you'll see how I chose to in.
 
@@ -207,3 +217,5 @@ Second Build step, execute shell commands:
 cd /home/jenkins
 vagrant destory --force
 ```
+
+Third Build step, set up email notification so you get notes about your builds.
