@@ -191,6 +191,8 @@ There are other settings, but the above will get you the important ones.
 
 ### Automatic building from github when a new push has been pushed ###
 
+I should mention that you need to have the "git" in the "Source Code Management" in the build configuration. Add the repository as something such as: `git://github.com/jjasghar/chef-jenkins-vagrant.git` and the branch as `master`.  You need to also `Build when a change is pushed to GitHub` checkbox under Build Triggers. With these, the following steps you should have the webhooks working.
+
 credit: http://stackoverflow.com/questions/10696112/github-organization-repo-jenkins-github-plugin-integration
 
 If you have used the github plugin and you see:
