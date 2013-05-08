@@ -130,7 +130,7 @@ node_name "lucid32.hsd1.ca.comcast.net."
 ```
 
 
-Installing Jenkins
+Installing and Configuring Jenkins
 ------------------
 
 ```shell
@@ -189,7 +189,41 @@ There are other settings, but the above will get you the important ones.
 * Green Balls, blue is dumb: https://wiki.jenkins-ci.org/display/JENKINS/Green+Balls
 * Ruby Plugin: http://wiki.hudson-ci.org/display/HUDSON/Ruby+Plugin
 
+### Automatic building from github when a new push has been pushed ###
 
+credit: http://stackoverflow.com/questions/10696112/github-organization-repo-jenkins-github-plugin-integration
+
+If you have used the github plugin and you see:
+> Last GitHub Push
+>
+> Polling has not run yet.
+
+You need to set up the webhooks:
+> To restrict the CI system and give access to your Team members to use or see the build logs, first you’ve to create an account.
+>
+> Go to Manage Jenkins > Configure System,
+> Check the Enable Security checkbox
+> Under Security Realm, choose Jenkins's own user database
+> Check the Allow users to sign up checkbox
+> Under Authorization, choose Project-based Matrix Authorization Strategy
+> Add first user with the name admin and another with GitHub (Note: the username for Admin access has to be admin) For GitHub named user, just choose the Overall Read only permission. We’ll use this user later with the GitHub hook.
+> Note: The admin and GitHub user that we’ve added in the above step does not create the User. Then you’ve to create a real user with that same name. Ya, I know, its a bit weird with Jenkins UI.
+>
+> Go to Manage Jenkins > Manage Users > Create User. Create both admin and GitHub users.
+>
+> Hooking with the Github web-hooks
+> 
+> Now to run the build automagically when new commit or branch gets pushed onto Github, we have to setup the repository.
+> 
+> Got to the hooks page for your repository. e.g.
+
+> github.com/<username>/<project_name>/admin/hooks
+
+> Under AVAILABLE SERVICE HOOKS > Post-Receive URLs, add github:github@your-ci-server.com/github-webhook/.
+>
+> The github:github is the user that we’d created earlier.
+>
+> Then we have to verify Jenkins with Github. Go to Manage Jenkins > Configure System and under GitHub Web Hook, add your Github username and password and click the Test Credential button to authorize once with Github.
 
 
 Extra gems
