@@ -219,7 +219,7 @@ You need to set up the webhooks:
 > 
 > Got to the hooks page for your repository. e.g.
 
-> github.com/<username>/<project_name>/admin/hooks
+`github.com/<username>/<project_name>/admin/hooks`
 
 > Under AVAILABLE SERVICE HOOKS > Post-Receive URLs, add github:github@your-ci-server.com/github-webhook/.
 >
