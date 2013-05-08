@@ -75,18 +75,19 @@ apt-get install curl git-core make build-essential libxml2-dev -y
 curl -L http://bit.ly/vagrant_boot_v1 | sudo bash
 mkdir /tmp/cookbooks/ && cd /tmp/cookbooks/
 git clone git://github.com/opscode-cookbooks/nginx.git
-cd /tmp/cookbooks/
-git clone git://github.com/btm/minitest-handler-cookbook.git
+cd /tmp/
+git clone git://github.com/jjasghar/chef-jenkins-vagrant.git
+mv /tmp/chef-jenkins-vagrant/minitest-handler-cookbook-0.1.7 /tmp/cookbooks/minitest-handler-cookbook/
 cd /tmp/cookbooks/
 git clone git://github.com/opscode-cookbooks/build-essential.git
+cd /tmp/cookbooks/
+git clone git://github.com/opscode-cookbooks/runit.git
 cd /tmp/cookbooks/
 git clone git://github.com/opscode-cookbooks/yum.git
 cd /tmp/cookbooks/
 git clone git://github.com/opscode-cookbooks/apt.git
 cd /tmp/cookbooks/
 git clone git://github.com/opscode-cookbooks/ohai.git
-cd /tmp/cookbooks/
-git clone git://github.com/opscode-cookbooks/runit.git
 cd /tmp/cookbooks/
 git clone git://github.com/opscode-cookbooks/chef_handler.git
 cd /tmp/
@@ -109,15 +110,14 @@ Vagrant::Config.run do |config|
 
   config.vm.provision :shell, :inline => $script
 
-  config.vm.provision :chef_client do |chef|
-  chef.chef_server_url = "http://localhost:8889"
-  chef.validation_key_path = "validation.pem"
-  chef.environment = "_default"
-  chef.add_recipe "nginx"
-  chef.add_recipe "minitest-handler-cookbook"
- end
+   config.vm.provision :chef_client do |chef|
+    chef.chef_server_url = "http://localhost:8889"
+    chef.validation_key_path = "validation.pem"
+    chef.environment = "_default"
+    chef.add_recipe "nginx"
+    chef.add_recipe "minitest-handler-cookbook"
+   end
 end
-
 ```
 
 A client.rb file that you can put at `/etc/chef/client.rb` if you so choose.
