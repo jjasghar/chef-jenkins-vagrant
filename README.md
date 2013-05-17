@@ -188,6 +188,7 @@ There are other settings, but the above will get you the important ones.
 * Prettier Email plugin: https://wiki.jenkins-ci.org/display/JENKINS/Email-ext+plugin
 * Green Balls, blue is dumb: https://wiki.jenkins-ci.org/display/JENKINS/Green+Balls
 * Ruby Plugin: http://wiki.hudson-ci.org/display/HUDSON/Ruby+Plugin
+* AnsiColor Plugin: https://wiki.jenkins-ci.org/display/JENKINS/AnsiColor+Plugin
 
 ### Automatic building from github when a new push has been pushed ###
 
